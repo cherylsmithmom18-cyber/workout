@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Workout</title>
+<meta name="application-name" content="My Workout">
+<meta name="apple-mobile-web-app-title" content="My Workout">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#C8553D">
+<meta name="description" content="A beginner full-body workout: 3 days a week, glutes, legs, cardio and upper-body tone.">
+<link id="manifest" rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22My%20Workout%22%2C%22short_name%22%3A%22My%20Workout%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23FFF8F1%22%2C%22theme_color%22%3A%22%23C8553D%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D'http%253A%252F%252Fwww.w3.org%252F2000%252Fsvg'%2520viewBox%253D'0%25200%2520512%2520512'%253E%253Crect%2520width%253D'512'%2520height%253D'512'%2520rx%253D'112'%2520fill%253D'%2523C8553D'%252F%253E%253C%252Fsvg%253E%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<link id="favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23C8553D'/%3E%3Crect x='96' y='206' width='48' height='100' rx='14' fill='%23FFF8F1'/%3E%3Crect x='368' y='206' width='48' height='100' rx='14' fill='%23FFF8F1'/%3E%3Crect x='56' y='226' width='40' height='60' rx='12' fill='%23FFF8F1'/%3E%3Crect x='416' y='226' width='40' height='60' rx='12' fill='%23FFF8F1'/%3E%3Crect x='144' y='238' width='224' height='36' rx='10' fill='%23FFF8F1'/%3E%3Cpath d='M256 120 l14 28 31 4 -23 21 6 31 -28 -15 -28 15 6 -31 -23 -21 31 -4z' fill='%23F6C26B'/%3E%3Ctext x='256' y='410' font-family='Arial,Helvetica,sans-serif' font-size='64' font-weight='700' fill='%23FFF8F1' text-anchor='middle'%3EMY WORKOUT%3C/text%3E%3C/svg%3E">
+<link id="touchicon" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='112' fill='%23C8553D'/%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#FFF8F1; --card:#FFFFFF; --ink:#2E2422; --muted:#7A6A64; --line:#F0E2D6;
+  --brand:#C8553D; --brand-d:#A9412C; --brand-l:#FBE4DC; --sun:#F6C26B; --sage:#5E8C6A; --sage-l:#E3F0E6; --plum:#6D4C7D;
+  --r:18px; --shadow:0 2px 10px rgba(120,60,40,.08);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;touch-action:manipulation}
+.print-only{display:none}
+
+/* Header */
+header.top{background:linear-gradient(135deg,#C8553D 0%,#D9744F 60%,#E99A5C 100%);color:#fff;padding:calc(18px + env(safe-area-inset-top)) 18px 64px;}
+header.top h1{margin:0;font-size:26px;letter-spacing:.2px}
+header.top p{margin:4px 0 0;opacity:.95;font-size:15px}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.icon-btn{background:rgba(255,255,255,.18);color:#fff;border-radius:14px;min-height:48px;padding:0 14px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+.icon-btn:active{background:rgba(255,255,255,.3)}
+
+/* Tabs */
+nav.tabs{position:sticky;top:0;z-index:20;margin:-48px 12px 0;background:var(--card);border-radius:20px;box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(4,1fr);padding:6px;gap:6px}
+nav.tabs button{min-height:56px;border-radius:14px;font-weight:700;font-size:15px;color:var(--muted);line-height:1.1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+nav.tabs button small{font-weight:500;font-size:11.5px;margin-top:2px}
+nav.tabs button[aria-selected="true"]{background:var(--brand);color:#fff}
+main{padding:14px 12px 0;max-width:640px;margin:0 auto}
+.panel[hidden]{display:none}
+
+/* Generic cards */
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px;margin:0 0 14px}
+.card h2{margin:0 0 4px;font-size:21px}
+.card h3{margin:0;font-size:19px}
+.sub{color:var(--muted);font-size:14.5px;margin:0}
+.pill{display:inline-block;background:var(--brand-l);color:var(--brand-d);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
+.pill.sage{background:var(--sage-l);color:var(--sage)}
+.note{background:#FFF3D6;border-left:5px solid var(--sun);border-radius:12px;padding:12px 14px;font-size:15px;margin:0 0 14px}
+.cheer{background:var(--sage-l);border-radius:14px;padding:12px 14px;color:#2F5A3B;font-size:15.5px;margin:0 0 14px}
+
+/* Day progress */
+.progress{display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:14px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sage),#86B88F);border-radius:99px;transition:width .3s}
+.progress b{font-size:15px;min-width:64px;text-align:right}
+
+/* Checklists (warm-up / cool-down) */
+.check{list-style:none;margin:10px 0 0;padding:0}
+.check li{border-top:1px solid var(--line)}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:12px 2px;min-height:52px;cursor:pointer}
+.check input{width:26px;height:26px;flex:none;accent-color:var(--sage);margin:1px 0 0}
+.check span b{display:block}
+.check span small{color:var(--muted);font-size:14px}
+
+/* Exercise card */
+.ex-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ex-num{flex:none;width:38px;height:38px;border-radius:12px;background:var(--brand-l);color:var(--brand-d);display:flex;align-items:center;justify-content:center;font-weight:800}
+.ex-title{flex:1}
+.ex-done .ex-num{background:var(--sage);color:#fff}
+details.how{margin:12px 0 4px;border:1px solid var(--line);border-radius:14px}
+details.how summary{list-style:none;min-height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-weight:700;color:var(--brand-d);cursor:pointer}
+details.how summary::-webkit-details-marker{display:none}
+details.how summary::after{content:"＋";font-size:20px}
+details.how[open] summary::after{content:"－"}
+.how-body{padding:0 14px 12px}
+.how-body h4{margin:12px 0 2px;font-size:14px;text-transform:uppercase;letter-spacing:.6px;color:var(--plum)}
+.how-body p,.how-body ul{margin:0;font-size:15.5px}
+.how-body ul{padding-left:20px}
+.how-body .easy{background:var(--sage-l);border-radius:10px;padding:8px 10px;margin-top:4px}
+
+.row{display:flex;gap:10px;align-items:center}
+.lbl{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin:14px 0 6px}
+.weight{display:flex;align-items:center;gap:8px}
+.weight input{width:110px;min-height:52px;border:2px solid var(--line);border-radius:14px;padding:0 12px;font-size:22px;font-weight:700;background:#FFFCF9}
+.weight input:focus{outline:none;border-color:var(--brand)}
+.weight .unit{color:var(--muted);font-weight:600}
+.hint{font-size:13.5px;color:var(--muted)}
+
+/* Rep counter */
+.reps{display:grid;grid-template-columns:72px 1fr 72px;gap:10px;align-items:stretch}
+.reps .pm{min-height:72px;border-radius:18px;background:var(--brand-l);color:var(--brand-d);font-size:34px;font-weight:800}
+.reps .pm:active{transform:scale(.96)}
+.reps .count{min-height:72px;border-radius:18px;background:#FFFCF9;border:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;user-select:none}
+.reps .count b{font-size:44px;line-height:1;font-variant-numeric:tabular-nums}
+.reps .count small{font-size:12px;color:var(--muted)}
+.reps .count.inrange{border-color:var(--sage);background:var(--sage-l)}
+.reps .count:active{transform:scale(.98)}
+
+/* Sets */
+.sets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.set{min-height:64px;border-radius:16px;border:2px solid var(--line);background:#fff;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15}
+.set small{font-weight:500;font-size:12.5px;color:var(--muted)}
+.set.done{background:var(--sage);border-color:var(--sage);color:#fff}
+.set.done small{color:#E8F4EA}
+
+/* Rest timer */
+.rest{margin-top:14px;background:#FBF3EC;border-radius:16px;padding:12px}
+.rest-top{display:flex;align-items:center;justify-content:space-between}
+.rest .time{font-size:38px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:1px}
+.rest.running .time{color:var(--brand)}
+.rest.finished .time{color:var(--sage)}
+.seg{display:inline-flex;background:#fff;border-radius:12px;padding:3px;border:1px solid var(--line)}
+.seg button{min-height:44px;min-width:56px;border-radius:10px;font-weight:700;font-size:15px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--plum);color:#fff}
+.rest-btns{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-top:10px}
+.btn{min-height:54px;border-radius:14px;font-weight:700;font-size:17px;background:var(--brand);color:#fff}
+.btn:active{background:var(--brand-d)}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.btn.sage{background:var(--sage)}
+.btn.wide{width:100%}
+
+/* Cardio */
+.cardio-time{font-size:64px;font-weight:800;text-align:center;font-variant-numeric:tabular-nums;margin:6px 0 2px;color:var(--plum)}
+.cardio-phase{text-align:center;font-weight:700;color:var(--brand-d);min-height:24px}
+.ring{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0}
+.ring i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--plum),#A47BB5)}
+
+.guide h3{margin:16px 0 4px;font-size:18px;color:var(--brand-d)}
+.guide p,.guide ul{margin:0 0 6px;font-size:16px}
+.guide ul{padding-left:20px}
+.footer-actions{display:grid;gap:10px;margin:6px 0 20px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(140%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:14px;font-weight:600;transition:transform .25s;z-index:50;max-width:90%;text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ================= PRINT: whole program on ONE letter page ================= */
+@media print{
+  @page{size:letter portrait;margin:0.38in 0.4in}
+  html,body{background:#fff !important}
+  body{font:8.7pt/1.3 Arial,Helvetica,sans-serif;color:#000;padding:0}
+  .screen-only,header.top,nav.tabs,main,.toast{display:none !important}
+  .print-only{display:block !important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none !important}
+  #printSheet h1{font-size:15pt;margin:0;color:#A9412C}
+  #printSheet .ph{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2pt solid #C8553D;padding-bottom:3pt;margin-bottom:4pt}
+  #printSheet .ph p{margin:0;font-size:8pt}
+  #printSheet .doc{border:1pt solid #E0A85A;background:#FFF5E0;padding:3pt 6pt;margin:0 0 5pt;font-size:8pt}
+  #printSheet table{width:100%;border-collapse:collapse;margin:0 0 5pt;table-layout:fixed}
+  #printSheet caption{text-align:left;font-weight:700;font-size:10pt;color:#fff;background:#C8553D;padding:2pt 6pt}
+  #printSheet th,#printSheet td{border:0.6pt solid #B9A79E;padding:2.2pt 4pt;vertical-align:top}
+  #printSheet th{background:#FBE4DC;font-size:7.5pt;text-align:left}
+  #printSheet td.ex{font-weight:700}
+  #printSheet td.log{height:21pt}
+  #printSheet td.sr{white-space:normal}
+  #printSheet .cols{display:grid;grid-template-columns:1fr 1fr;gap:6pt}
+  #printSheet .box{border:0.8pt solid #B9A79E;padding:3pt 6pt}
+  #printSheet .box h4{margin:0 0 1pt;font-size:8.6pt;color:#A9412C}
+  #printSheet .box p,#printSheet .box ul{margin:0;font-size:7.8pt}
+  #printSheet .box ul{padding-left:11pt}
+  #printSheet .foot{text-align:center;font-size:7.6pt;margin-top:4pt;color:#555}
+}
+</style>
+</head>
+<body>
+
+<header class="top screen-only">
+  <div class="hdr-row">
+    <div>
+      <h1>My Workout</h1>
+      <p id="greet">Welcome back! One rep at a time. 💪</p>
+    </div>
+    <button class="icon-btn" id="printBtn" aria-label="Print the one-page plan">🖨️ Print</button>
+  </div>
+</header>
+
+<nav class="tabs screen-only" role="tablist" aria-label="Workout days">
+  <button role="tab" data-tab="d1" aria-selected="true">Day 1<small>Lower</small></button>
+  <button role="tab" data-tab="d2" aria-selected="false">Day 2<small>Cardio+Upper</small></button>
+  <button role="tab" data-tab="d3" aria-selected="false">Day 3<small>Lower+</small></button>
+  <button role="tab" data-tab="guide" aria-selected="false">Guide<small>Tips</small></button>
+</nav>
+
+<main class="screen-only" id="app">
+  <section class="panel" id="panel-d1"></section>
+  <section class="panel" id="panel-d2" hidden></section>
+  <section class="panel" id="panel-d3" hidden></section>
+  <section class="panel guide" id="panel-guide" hidden></section>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ================= ONE-PAGE PRINTABLE PLAN ================= -->
+<div class="print-only" id="printSheet">
+  <div class="ph">
+    <div><h1>My Workout &mdash; Beginner Full-Body Plan</h1>
+    <p>3 days/week with a rest day between (e.g. Mon / Wed / Fri). Goals: glutes, legs, cardio, chest &amp; upper-body tone.</p></div>
+    <p style="text-align:right">Week of: ____________<br>Start date: ____________</p>
+  </div>
+  <div class="doc"><b>Before you start:</b> please check with your doctor before beginning this program, especially with any heart, blood-pressure, joint, bone-density or other health concerns. Stop if you feel sharp pain, chest pain, dizziness or unusual shortness of breath.</div>
+
+  <table>
+    <caption>DAY 1 &mdash; Lower Body (glutes &amp; legs)</caption>
+    <colgroup><col style="width:17%"><col style="width:11%"><col style="width:40%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:8%"></colgroup>
+    <tr><th>Exercise</th><th>Sets &times; reps</th><th>Key cues</th><th>Wk 1 lb</th><th>Wk 2 lb</th><th>Wk 3 lb</th><th>Wk 4 lb</th></tr>
+    <tr><td class="ex">Goblet squat</td><td class="sr">3 &times; 10&ndash;12</td><td>Dumbbell at chest, sit hips back &amp; down, chest tall, knees follow toes, heels down. <i>Easier: squat to a bench.</i></td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Romanian deadlift</td><td class="sr">3 &times; 10&ndash;12</td><td>Soft knees, push hips back, weights slide down thighs to mid-shin, flat back, squeeze glutes to stand.</td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Hip thrust</td><td class="sr">3 &times; 10&ndash;12</td><td>Upper back on bench, chin tucked, drive through heels, squeeze glutes 1&ndash;2 sec at top, ribs down. <i>Easier: floor glute bridge.</i></td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Walking lunges</td><td class="sr">3 &times; 10&ndash;12 /leg</td><td>Tall torso, feet on "train tracks", lower until back knee hovers, push through front heel. <i>Easier: stationary reverse lunge with support.</i></td><td class="log"></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <table>
+    <caption>DAY 2 &mdash; Cardio + Upper Body (chest, back, shoulders)</caption>
+    <colgroup><col style="width:17%"><col style="width:11%"><col style="width:40%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:8%"></colgroup>
+    <tr><th>Exercise</th><th>Sets &times; reps</th><th>Key cues</th><th>Wk 1</th><th>Wk 2</th><th>Wk 3</th><th>Wk 4</th></tr>
+    <tr><td class="ex">Cardio: bike or incline treadmill</td><td class="sr">20 min</td><td>3 min easy &rarr; 15 min moderate (can talk in short sentences, effort 5&ndash;6/10) &rarr; 2 min easy. Treadmill: 3&ndash;8% incline, don't hold the rails.</td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Push-ups (incline or knee)</td><td class="sr">3 &times; 10&ndash;12</td><td>Hands on bench, body in one straight line, elbows ~45&deg; ("arrow", not "T"), chest to bench. <i>Easier: higher surface or wall.</i></td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Row (dumbbell or cable)</td><td class="sr">3 &times; 10&ndash;12 /arm</td><td>Flat back, pull elbow toward hip, squeeze shoulder blade, lower slowly, shoulders away from ears.</td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Overhead press (seated)</td><td class="sr">3 &times; 10&ndash;12</td><td>Back supported, dumbbells at shoulders, press up, ribs down (no arching), lower to chin height.</td><td class="log"></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <table>
+    <caption>DAY 3 &mdash; Repeat Day 1, slightly heavier (add 2.5&ndash;5 lb if Day 1 felt good)</caption>
+    <colgroup><col style="width:17%"><col style="width:11%"><col style="width:40%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:8%"></colgroup>
+    <tr><th>Exercise</th><th>Sets &times; reps</th><th>Key cues</th><th>Wk 1 lb</th><th>Wk 2 lb</th><th>Wk 3 lb</th><th>Wk 4 lb</th></tr>
+    <tr><td class="ex">Goblet squat</td><td class="sr">3 &times; 10&ndash;12</td><td>Same form as Day 1; only go heavier if all reps stay clean.</td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Romanian deadlift</td><td class="sr">3 &times; 10&ndash;12</td><td>Feel the hamstring stretch; back stays flat the whole time.</td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Hip thrust</td><td class="sr">3 &times; 10&ndash;12</td><td>Pause and squeeze at the top every rep.</td><td class="log"></td><td></td><td></td><td></td></tr>
+    <tr><td class="ex">Walking lunges</td><td class="sr">3 &times; 10&ndash;12 /leg</td><td>Hold lighter dumbbells or none &mdash; balance first.</td><td class="log"></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <div class="cols">
+    <div class="box"><h4>Warm-up (5 min, every day)</h4>
+      <p>3 min easy bike or marching &rarr; 10 bodyweight squats (to a chair is fine) &rarr; 10 glute bridges &rarr; 10 arm circles each way &rarr; 10 hip hinges.</p>
+      <h4 style="margin-top:3pt">Cool-down stretch (5 min)</h4>
+      <p>Hold each 30 sec, breathe slowly, no bouncing: hamstring stretch &bull; figure-4 glute stretch &bull; kneeling/standing hip-flexor stretch &bull; quad stretch (hold support) &bull; doorway chest stretch &bull; child's pose or cat-cow.</p>
+    </div>
+    <div class="box"><h4>Rest, weights &amp; progress</h4>
+      <ul>
+        <li><b>Rest</b> 60&ndash;90 sec between sets (90 for squats, deadlifts, lunges).</li>
+        <li><b>Starting weight:</b> the last 2 reps feel challenging but your form stays clean. Can't get 10 good reps? Go lighter. 12 feels easy? Go up next time.</li>
+        <li><b>Progress weekly:</b> when you hit 3 &times; 12 with good form, add the smallest step (2.5&ndash;5 lb). Weeks 1&ndash;2: 2 sets is fine while you learn.</li>
+        <li><b>Cardio:</b> add 1&ndash;2 min or a little incline/resistance each week.</li>
+        <li>Mild soreness for 1&ndash;2 days is normal. Sharp or joint pain = stop.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot">You've done this before and you can do it again &mdash; consistency beats intensity. Welcome back!</div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- Program data ---------------- */
+var LOWER = [
+  {id:"squat", name:"Goblet Squat", target:"3 × 10–12", rest:90,
+   setup:"Hold one dumbbell upright against your chest, hands cupping the top end. Feet a little wider than hips, toes turned slightly out.",
+   move:"Breathe in and sit your hips back and down like you're sitting into a chair. Go as low as feels comfortable with your chest tall, then push through your whole foot to stand up and squeeze your glutes at the top.",
+   cues:["Chest proud, eyes forward","Knees follow the direction of your toes","Heels stay down — weight in mid-foot","Elbows can brush the inside of your knees"],
+   mistakes:["Knees caving inward","Heels lifting / tipping onto toes","Rounding the back to get lower","Dropping down too fast"],
+   easy:"Squat to a bench or sturdy chair (tap and stand), or do it with no weight."},
+  {id:"rdl", name:"Romanian Deadlift", target:"3 × 10–12", rest:90,
+   setup:"Stand with feet hip-width, a dumbbell in each hand resting in front of your thighs. Knees slightly soft.",
+   move:"Push your hips straight back, as if closing a car door with your bottom. Let the weights slide down your thighs to just below the knees or mid-shin until you feel a stretch in the back of your legs. Squeeze your glutes and drive your hips forward to stand tall.",
+   cues:["Back flat, neck in line with spine","Keep the weights close to your legs","Knee bend stays the same the whole time","It's a hip hinge, not a squat"],
+   mistakes:["Rounding the lower back","Bending the knees more and more (turning it into a squat)","Reaching too low just to touch the floor","Leaning back at the top"],
+   easy:"Practice with hands on hips or a light dumbbell, and only go to just below the knee."},
+  {id:"thrust", name:"Hip Thrust", target:"3 × 10–12", rest:60,
+   setup:"Sit on the floor with the bottom of your shoulder blades against the edge of a bench. Feet flat, hip-width apart. Rest a dumbbell across your hips (use a pad or folded towel).",
+   move:"Tuck your chin, then drive through your heels to lift your hips until your body is a straight line from shoulders to knees. Squeeze your glutes for 1–2 seconds, then lower with control.",
+   cues:["Chin tucked, eyes looking forward (not at the ceiling)","Ribs down — don't arch your lower back","Shins straight up and down at the top","Push through your heels"],
+   mistakes:["Arching the lower back instead of using glutes","Pushing through the toes","Feet too far away (feels hamstrings) or too close (feels quads)","Rushing — skipping the squeeze"],
+   easy:"Glute bridge on a floor mat with no weight, then add a dumbbell when 12 feels easy."},
+  {id:"lunge", name:"Walking Lunges", target:"3 × 10–12 per leg", rest:90,
+   setup:"Stand tall holding light dumbbells at your sides (or no weight). Find a clear path in front of you.",
+   move:"Take a comfortable step forward and lower until your back knee hovers just above the floor. Push through your front heel and step through into the next lunge. Alternate legs.",
+   cues:["Torso upright, core gently braced","Feet on 'train tracks', not a tightrope","Front knee stacked over your ankle","Small controlled steps are perfect"],
+   mistakes:["Narrow stance that throws off balance","Front knee caving inward","Dropping the back knee onto the floor","Leaning far forward"],
+   easy:"Stationary reverse lunges (step back, then return) holding a rack or wall for balance."}
+];
+var UPPER = [
+  {id:"pushup", name:"Push-Ups (incline or knee)", target:"3 × 10–12", rest:60,
+   setup:"Hands on a bench or the Smith machine bar, slightly wider than your shoulders. Walk your feet back until your body is one straight line.",
+   move:"Lower your chest toward the bench by bending your elbows, then press the bench away to straighten your arms.",
+   cues:["Squeeze glutes and keep your belly tight","Elbows at about 45° — an 'arrow', not a 'T'","Lead with your chest, not your chin","Full, controlled range"],
+   mistakes:["Hips sagging or piking up","Elbows flaring straight out","Tiny half reps","Poking the head forward"],
+   easy:"Use a higher surface (even a wall), or do knee push-ups on a mat. Lower surface = harder."},
+  {id:"row", name:"Row (dumbbell or cable)", target:"3 × 10–12 per arm", rest:60,
+   setup:"Dumbbell: one hand and same-side knee on a bench, back flat, other foot on the floor, dumbbell hanging below your shoulder. Cable: sit tall with a slight knee bend.",
+   move:"Pull your elbow back toward your hip, squeezing your shoulder blade toward your spine. Pause, then lower slowly.",
+   cues:["Back flat like a tabletop","Shoulder down, away from your ear","Think 'pull with the elbow', not the hand","Slow on the way down"],
+   mistakes:["Twisting the torso to swing the weight","Shrugging up toward the ear","Jerking the weight","Rounding the back"],
+   easy:"Seated cable row or chest-supported machine row with a light weight."},
+  {id:"press", name:"Overhead Press (seated)", target:"3 × 10–12", rest:60,
+   setup:"Sit on a bench set upright with your back supported. Hold dumbbells at shoulder height, palms forward or facing each other.",
+   move:"Press the dumbbells up until your arms are nearly straight, slightly in front of your head. Lower slowly back to about chin height.",
+   cues:["Ribs down — keep your back against the pad","Wrists stacked over elbows","Breathe out as you press","Smooth, no locking out hard"],
+   mistakes:["Arching the lower back","Going too heavy too soon","Banging the dumbbells together","Shrugging into your neck"],
+   easy:"Use lighter weights with palms facing in, or press one arm at a time. Stop if your shoulder pinches."}
+];
+var WARMUP = [
+  ["3 min easy bike or marching","Gentle pace, get warm"],
+  ["10 bodyweight squats","To a chair is perfect"],
+  ["10 glute bridges","Lying on a mat, squeeze at top"],
+  ["10 arm circles each way","Small to big circles"],
+  ["10 hip hinges","Hands on hips, push hips back"]
+];
+var COOLDOWN = [
+  ["Hamstring stretch","30 sec each leg"],
+  ["Figure-4 glute stretch","30 sec each side"],
+  ["Hip-flexor stretch","Kneeling or standing lunge, 30 sec each"],
+  ["Quad stretch","Hold support, 30 sec each"],
+  ["Doorway chest stretch","30 sec, gentle"],
+  ["Child's pose or cat-cow","30–60 sec, breathe slowly"]
+];
+var DAYS = {
+  d1:{title:"Day 1 · Lower Body", sub:"Glutes & legs · about 45 min", ex:LOWER, cheer:"Welcome back! Today is about learning the moves and finding your starting weights. Clean form beats heavy weights."},
+  d2:{title:"Day 2 · Cardio + Upper Body", sub:"20 min cardio, then chest, back & shoulders", ex:UPPER, cardio:true, cheer:"Cardio first, then tone those arms, chest and back. Steady effort — you should be able to chat in short sentences."},
+  d3:{title:"Day 3 · Lower Body (a little heavier)", sub:"Repeat Day 1 · add 2.5–5 lb if Day 1 felt good", ex:LOWER, heavier:true, cheer:"Same moves as Day 1. If your last 2 reps felt doable on Day 1, go up one small step today. If not, same weight is a win too!"}
+};
+
+/* ---------------- Storage ---------------- */
+var KEY="myWorkout.v1", state={};
+try{ state=JSON.parse(localStorage.getItem(KEY))||{}; }catch(e){ state={}; }
+function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+function dayState(d){ if(!state[d]) state[d]={ex:{},warm:[],cool:[],cardio:{left:1200}}; return state[d]; }
+function exState(d,id){ var ds=dayState(d); if(!ds.ex[id]) ds.ex[id]={sets:[0,0,0],setReps:[0,0,0],reps:0,weight:"",restLen:null}; return ds.ex[id]; }
+
+/* ---------------- Helpers ---------------- */
+function $(s,r){return (r||document).querySelector(s);}
+function el(tag,attrs,html){var e=document.createElement(tag); if(attrs) for(var k in attrs){ if(k==="class") e.className=attrs[k]; else e.setAttribute(k,attrs[k]); } if(html!=null) e.innerHTML=html; return e;}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function fmt(s){ s=Math.max(0,Math.ceil(s)); var m=Math.floor(s/60), x=s%60; return m+":"+(x<10?"0":"")+x; }
+var toastT; function toast(msg){ var t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(function(){t.classList.remove("show");},2600); }
+
+/* Sound + vibration */
+var actx=null;
+function unlockAudio(){ try{ if(!actx){ var C=window.AudioContext||window.webkitAudioContext; if(C) actx=new C(); } if(actx&&actx.state==="suspended") actx.resume(); }catch(e){} }
+document.addEventListener("pointerdown",unlockAudio,{passive:true});
+function beep(times){
+  times=times||3;
+  try{ unlockAudio(); if(!actx) return; var t0=actx.currentTime+0.02;
+    for(var i=0;i<times;i++){ var o=actx.createOscillator(), g=actx.createGain(); o.type="sine"; o.frequency.value=(i===times-1)?1175:880;
+      g.gain.setValueAtTime(0.0001,t0+i*0.32); g.gain.exponentialRampToValueAtTime(0.5,t0+i*0.32+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+i*0.32+0.26);
+      o.connect(g); g.connect(actx.destination); o.start(t0+i*0.32); o.stop(t0+i*0.32+0.28); }
+  }catch(e){}
+}
+function buzz(p){ try{ if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
+
+/* Wake lock (keeps screen on while a timer runs, where supported) */
+var wakeLock=null, wakeUsers=0;
+function wakeOn(){ wakeUsers++; try{ if(!wakeLock&&navigator.wakeLock) navigator.wakeLock.request("screen").then(function(w){wakeLock=w; w.addEventListener&&w.addEventListener("release",function(){wakeLock=null;});}).catch(function(){}); }catch(e){} }
+function wakeOff(){ wakeUsers=Math.max(0,wakeUsers-1); if(!wakeUsers&&wakeLock){ try{wakeLock.release();}catch(e){} wakeLock=null; } }
+
+/* ---------------- Timer (accurate even if the phone throttles) ---------------- */
+function Timer(len,onTick,onDone){ this.len=len; this.left=len; this.end=0; this.running=false; this.iv=null; this.onTick=onTick; this.onDone=onDone; }
+Timer.prototype.start=function(){ if(this.running) return; if(this.left<=0) this.left=this.len; this.end=Date.now()+this.left*1000; this.running=true; var me=this; wakeOn(); this.iv=setInterval(function(){me.tick();},250); this.tick(); };
+Timer.prototype.pause=function(){ if(!this.running) return; this.left=Math.max(0,(this.end-Date.now())/1000); this.running=false; clearInterval(this.iv); wakeOff(); this.onTick(this); };
+Timer.prototype.reset=function(len){ if(this.running){ clearInterval(this.iv); wakeOff(); } this.running=false; if(len) this.len=len; this.left=this.len; this.onTick(this); };
+Timer.prototype.tick=function(){ if(!this.running) return; this.left=Math.max(0,(this.end-Date.now())/1000); this.onTick(this); if(this.left<=0){ this.running=false; clearInterval(this.iv); wakeOff(); this.onDone(this); } };
+var allTimers=[];
+document.addEventListener("visibilitychange",function(){ if(!document.hidden) allTimers.forEach(function(t){t.tick();}); });
+
+/* ---------------- Rendering ---------------- */
+function checklist(day,key,items,title,sub){
+  var c=el("div",{class:"card"});
+  c.appendChild(el("h3",null,title)); c.appendChild(el("p",{class:"sub"},sub));
+  var ul=el("ul",{class:"check"}), ds=dayState(day);
+  items.forEach(function(it,i){
+    var li=el("li"), lab=el("label"), cb=el("input",{type:"checkbox"});
+    cb.checked=!!ds[key][i];
+    cb.addEventListener("change",function(){ ds[key][i]=cb.checked?1:0; save(); });
+    lab.appendChild(cb); lab.appendChild(el("span",null,"<b>"+esc(it[0])+"</b><small>"+esc(it[1])+"</small>"));
+    li.appendChild(lab); ul.appendChild(li);
+  });
+  c.appendChild(ul); return c;
+}
+
+function updateProgress(day){
+  var d=DAYS[day], done=0, total=d.ex.length*3;
+  d.ex.forEach(function(x){ var s=exState(day,x.id).sets; done+=s[0]+s[1]+s[2]; });
+  var p=$("#prog-"+day); if(!p) return;
+  $("i",p).style.width=(done/total*100)+"%"; $("b",p).textContent=done+" / "+total+" sets";
+  if(done===total && !p.dataset.cheered){ p.dataset.cheered="1"; toast("🎉 All sets done! Don't forget your cool-down stretch."); }
+  if(done<total) delete p.dataset.cheered;
+}
+
+function exerciseCard(day,x,idx){
+  var st=exState(day,x.id);
+  var c=el("article",{class:"card ex",id:day+"-"+x.id});
+  var list=function(a){return "<ul>"+a.map(function(s){return "<li>"+esc(s)+"</li>";}).join("")+"</ul>";};
+  var prevHint="";
+  if(day==="d3"){ var w1=exState("d1",x.id).weight; prevHint = w1 ? "Day 1: "+esc(w1)+" lb → try "+esc(w1)+"–"+esc((parseFloat(w1)+5)||w1)+" lb" : "Tip: use Day 1's weight or a small step up."; }
+  else { prevHint = "Pick a weight where the last 2 reps are challenging but form stays clean."; }
+  c.innerHTML=
+    '<div class="ex-head"><div class="ex-num">'+(idx+1)+'</div><div class="ex-title"><h3>'+esc(x.name)+'</h3><p class="sub">'+esc(x.target)+' · rest '+(x.rest===90?'60–90':'60')+' sec</p></div></div>'+
+    '<details class="how"><summary>How to do it</summary><div class="how-body">'+
+      '<h4>Setup</h4><p>'+esc(x.setup)+'</p>'+
+      '<h4>Movement</h4><p>'+esc(x.move)+'</p>'+
+      '<h4>Form cues</h4>'+list(x.cues)+
+      '<h4>Common mistakes</h4>'+list(x.mistakes)+
+      '<h4>Easier option</h4><p class="easy">'+esc(x.easy)+'</p>'+
+    '</div></details>'+
+    '<div class="lbl">Weight</div><div class="weight"><input type="number" inputmode="decimal" min="0" step="0.5" placeholder="0" aria-label="Weight in pounds for '+esc(x.name)+'"><span class="unit">lb</span></div><div class="hint prevhint" data-ex="'+x.id+'">'+prevHint+'</div>'+
+    '<div class="lbl">Reps this set <span style="text-transform:none;font-weight:500">(tap the number to count)</span></div>'+
+    '<div class="reps"><button class="pm minus" aria-label="Minus one rep">−</button><button class="count" aria-label="Tap to add a rep"><b>0</b><small>goal 10–12</small></button><button class="pm plus" aria-label="Plus one rep">+</button></div>'+
+    '<div class="lbl">Sets <span style="text-transform:none;font-weight:500">(tap when finished — rest timer starts)</span></div>'+
+    '<div class="sets"></div>'+
+    '<div class="rest"><div class="rest-top"><div><div class="hint">Rest timer</div><div class="time">1:00</div></div><div class="seg" role="group" aria-label="Rest length"><button data-len="60">60s</button><button data-len="90">90s</button></div></div>'+
+    '<div class="rest-btns"><button class="btn startpause">Start rest</button><button class="btn ghost resetT">Reset</button></div></div>';
+
+  var wIn=$("input",c), cnt=$(".count",c), cntB=$("b",cnt), setsBox=$(".sets",c), rest=$(".rest",c), timeEl=$(".time",rest), sp=$(".startpause",rest);
+  wIn.value=st.weight||"";
+  wIn.addEventListener("input",function(){ st.weight=wIn.value; save(); });
+  function drawReps(){ cntB.textContent=st.reps; cnt.classList.toggle("inrange",st.reps>=10&&st.reps<=12); }
+  function setReps(n){ st.reps=Math.max(0,Math.min(99,n)); drawReps(); save(); }
+  $(".plus",c).addEventListener("click",function(){ setReps(st.reps+1); buzz(15); });
+  $(".minus",c).addEventListener("click",function(){ setReps(st.reps-1); });
+  cnt.addEventListener("click",function(){ setReps(st.reps+1); buzz(15); });
+  drawReps();
+
+  // Rest timer
+  var restLen=st.restLen||60;
+  var timer=new Timer(restLen,function(t){
+    timeEl.textContent=fmt(t.left);
+    rest.classList.toggle("running",t.running); 
+    if(t.running) rest.classList.remove("finished");
+    sp.textContent=t.running?"Pause":(t.left<t.len&&t.left>0?"Resume":"Start rest");
+  },function(t){
+    rest.classList.add("finished"); timeEl.textContent="Go!"; sp.textContent="Start rest";
+    beep(3); buzz([300,150,300,150,500]); toast("⏰ Rest over — "+x.name+": next set!");
+    t.left=0;
+  });
+  allTimers.push(timer);
+  function drawSeg(){ Array.prototype.forEach.call($(".seg",rest).children,function(b){ b.setAttribute("aria-pressed",String(+b.dataset.len===timer.len)); }); }
+  Array.prototype.forEach.call($(".seg",rest).children,function(b){
+    b.addEventListener("click",function(){ var L=+b.dataset.len; st.restLen=L; save(); timer.reset(L); rest.classList.remove("finished"); drawSeg(); });
+  });
+  sp.addEventListener("click",function(){ unlockAudio(); if(timer.running) timer.pause(); else timer.start(); });
+  $(".resetT",rest).addEventListener("click",function(){ timer.reset(); rest.classList.remove("finished"); });
+  drawSeg(); timer.reset();
+
+  // Sets
+  function drawSets(){
+    setsBox.innerHTML="";
+    for(var i=0;i<3;i++){ (function(i){
+      var b=el("button",{class:"set"+(st.sets[i]?" done":""),"aria-pressed":String(!!st.sets[i])});
+      b.innerHTML=(st.sets[i]?"✓ ":"")+"Set "+(i+1)+"<small>"+(st.sets[i]?(st.setReps[i]?st.setReps[i]+" reps":"done"):"tap when done")+"</small>";
+      b.addEventListener("click",function(){
+        if(st.sets[i]){ st.sets[i]=0; st.setReps[i]=0; }
+        else { st.sets[i]=1; st.setReps[i]=st.reps; st.reps=0; drawReps();
+          var left=3-(st.sets[0]+st.sets[1]+st.sets[2]);
+          if(left>0){ timer.reset(); timer.start(); toast("Nice work! Rest "+timer.len+" sec. "+left+" set"+(left>1?"s":"")+" to go."); }
+          else { toast("✅ "+x.name+" complete — great job!"); }
+          buzz(40);
+        }
+        save(); drawSets(); updateProgress(day);
+        c.classList.toggle("ex-done",st.sets[0]+st.sets[1]+st.sets[2]===3);
+      });
+      setsBox.appendChild(b);
+    })(i); }
+  }
+  drawSets(); c.classList.toggle("ex-done",st.sets[0]+st.sets[1]+st.sets[2]===3);
+  return c;
+}
+
+function cardioCard(day){
+  var ds=dayState(day);
+  var c=el("article",{class:"card",id:day+"-cardio"});
+  c.innerHTML='<div class="ex-head"><div class="ex-num" style="background:#EFE4F4;color:#6D4C7D">♥</div><div class="ex-title"><h3>Cardio · 20 minutes</h3><p class="sub">Bike or incline treadmill</p></div></div>'+
+   '<div class="cardio-time">20:00</div><div class="cardio-phase">Ready when you are</div><div class="ring"><i></i></div>'+
+   '<div class="rest-btns"><button class="btn startpause" style="background:#6D4C7D">Start cardio</button><button class="btn ghost resetT">Reset</button></div>'+
+   '<details class="how"><summary>How to do it</summary><div class="how-body">'+
+   '<h4>Plan</h4><ul><li><b>0–3 min:</b> easy, warming up</li><li><b>3–18 min:</b> moderate — you can talk in short sentences (effort 5–6 out of 10)</li><li><b>18–20 min:</b> easy cool-down</li></ul>'+
+   '<h4>Bike</h4><p>Seat height so your knee is slightly bent at the bottom. Keep a smooth, steady cadence; add resistance to make it harder.</p>'+
+   '<h4>Incline treadmill</h4><p>Start around 3–5% incline at 2.5–3.2 mph. Walk tall and swing your arms — try not to hold the rails.</p>'+
+   '<h4>Common mistakes</h4><ul><li>Going too hard in the first 5 minutes</li><li>Leaning on the treadmill rails</li><li>Holding your breath</li></ul>'+
+   '<h4>Easier option</h4><p class="easy">Start with 10–15 minutes and add 1–2 minutes each week. Flat treadmill walking is fine too.</p>'+
+   '</div></details>';
+  var tEl=$(".cardio-time",c), ph=$(".cardio-phase",c), bar=$(".ring i",c), sp=$(".startpause",c);
+  var lastPhase=null;
+  function phase(left){ var el2=1200-left; if(left<=0) return "Done! Amazing work 🎉"; if(el2<180) return "Warm-up: easy pace"; if(el2<1080) return "Steady: moderate effort (5–6/10)"; return "Cool-down: easy pace"; }
+  var t=new Timer(1200,function(tm){
+    tEl.textContent=fmt(tm.left); bar.style.width=((1200-tm.left)/1200*100)+"%";
+    var p=phase(tm.left); ph.textContent=tm.running||tm.left<1200?p:"Ready when you are";
+    if(tm.running && lastPhase && p!==lastPhase){ beep(2); buzz([200,100,200]); toast(p); }
+    lastPhase=tm.running?p:null;
+    sp.textContent=tm.running?"Pause":(tm.left<1200&&tm.left>0?"Resume":"Start cardio");
+    ds.cardio.left=Math.round(tm.left); if(!tm.running) save();
+  },function(){ ph.textContent="Done! Amazing work 🎉"; ds.cardio.left=0; save(); beep(4); buzz([400,150,400,150,600]); toast("🎉 20 minutes of cardio done! On to upper body."); sp.textContent="Start cardio"; });
+  allTimers.push(t);
+  var saved=ds.cardio&&typeof ds.cardio.left==="number"?ds.cardio.left:1200;
+  t.left=saved>0?saved:1200; t.onTick(t);
+  if(saved===0){ tEl.textContent="0:00"; ph.textContent="Done! Amazing work 🎉"; bar.style.width="100%"; }
+  sp.addEventListener("click",function(){ unlockAudio(); if(t.running) t.pause(); else t.start(); });
+  $(".resetT",c).addEventListener("click",function(){ t.reset(1200); ds.cardio.left=1200; save(); });
+  window.addEventListener("pagehide",function(){ if(t.running){ ds.cardio.left=Math.round(t.left); save(); } });
+  return c;
+}
+
+function renderDay(day){
+  var d=DAYS[day], p=$("#panel-"+day); p.innerHTML="";
+  var head=el("div",{class:"card"});
+  head.innerHTML='<h2>'+d.title+'</h2><p class="sub">'+d.sub+'</p><div class="progress" id="prog-'+day+'" style="margin-top:12px"><div class="bar"><i></i></div><b>0 / 0</b></div>';
+  p.appendChild(head);
+  p.appendChild(el("div",{class:"cheer"},"🌱 "+d.cheer));
+  p.appendChild(checklist(day,"warm",WARMUP,"Warm-up · 5 min","Get your body warm and joints moving"));
+  if(d.cardio) p.appendChild(cardioCard(day));
+  d.ex.forEach(function(x,i){ p.appendChild(exerciseCard(day,x,i)); });
+  p.appendChild(checklist(day,"cool",COOLDOWN,"Cool-down stretch · 5 min","Hold each stretch about 30 sec. Breathe slowly, no bouncing."));
+  var fa=el("div",{class:"footer-actions"});
+  var rb=el("button",{class:"btn ghost wide"},"↺ Reset "+d.title.split(" · ")[0]);
+  rb.addEventListener("click",function(){
+    if(!confirm("Clear today's sets, reps, checklists"+(d.cardio?" and cardio timer":"")+" for "+d.title.split(" · ")[0]+"? (Weights are kept so you remember them.)")) return;
+    var keepW={}; d.ex.forEach(function(x){ var s=exState(day,x.id); keepW[x.id]={w:s.weight,r:s.restLen}; });
+    allTimers.forEach(function(t){ if(t.running) t.pause(); });
+    state[day]=null; dayState(day); d.ex.forEach(function(x){ var s=exState(day,x.id); s.weight=keepW[x.id].w; s.restLen=keepW[x.id].r; });
+    save(); allTimers=[]; renderAll(); toast("Fresh start — you've got this!");
+  });
+  fa.appendChild(rb); p.appendChild(fa);
+  updateProgress(day);
+}
+
+function renderGuide(){
+  $("#panel-guide").innerHTML=
+  '<div class="note"><b>🩺 Please check with your doctor before starting</b> — especially if you have heart, blood-pressure, joint, bone-density or other health concerns. Stop if you feel sharp pain, chest pain, dizziness or unusual shortness of breath.</div>'+
+  '<div class="card">'+
+  '<h2>Your plan</h2><p class="sub">3 days a week with a rest day between, e.g. Mon / Wed / Fri.</p>'+
+  '<h3>📅 The week</h3><ul><li><b>Day 1 – Lower body:</b> goblet squat, Romanian deadlift, hip thrust, walking lunges · 3 × 10–12</li><li><b>Day 2 – Cardio + upper body:</b> 20 min bike or incline treadmill, then push-ups, rows, overhead press · 3 × 10–12</li><li><b>Day 3 – Lower body again,</b> a little heavier</li></ul>'+
+  '<h3>⏱️ Rest between sets</h3><p>60–90 seconds. Use 90 sec for squats, deadlifts and lunges; 60 sec is fine for the rest. Take longer if you need it — that\'s okay!</p>'+
+  '<h3>🏋️ Choosing a starting weight</h3><p>Pick a weight where the <b>last 2 reps feel challenging but your form stays clean</b>. If you can\'t reach 10 good reps, go lighter. If 12 feels easy, go up next time. Start light on day one — you can always add.</p>'+
+  '<h3>📈 Weekly progression</h3><ul><li><b>Weeks 1–2:</b> learn the moves. Doing 2 sets instead of 3 is completely fine.</li><li><b>Double progression:</b> once you hit 3 × 12 with good form, add the smallest jump (2.5–5 lb) and work back up from 10.</li><li><b>Day 3:</b> if Day 1 felt good, add 2.5–5 lb to the lower-body lifts.</li><li><b>Cardio:</b> add 1–2 minutes or a little incline/resistance each week, up to ~30 min.</li><li>Log your weights here — seeing progress is motivating!</li></ul>'+
+  '<h3>💛 Listen to your body</h3><ul><li>Mild muscle soreness for a day or two is normal, especially the first weeks.</li><li>Sharp pain or joint pain means stop and choose the easier option.</li><li>Breathe out on the effort, never hold your breath.</li><li>Drink water and include protein with your meals to help muscles recover.</li><li>Strength training is fantastic for bones, balance and energy — you\'re investing in yourself.</li></ul>'+
+  '<h3>📱 Install on your phone</h3><p>In Chrome, tap the ⋮ menu → <b>Add to Home screen</b>. It\'ll appear as “My Workout”. Your progress is saved on this phone.</p>'+
+  '</div><div class="footer-actions"><button class="btn wide" id="printBtn2">🖨️ Print one-page plan</button></div>';
+  $("#printBtn2").addEventListener("click",function(){ window.print(); });
+}
+
+function renderAll(){ ["d1","d2","d3"].forEach(renderDay); renderGuide(); }
+
+/* Tabs */
+function showTab(name){
+  Array.prototype.forEach.call(document.querySelectorAll("nav.tabs button"),function(b){ b.setAttribute("aria-selected",String(b.dataset.tab===name)); });
+  ["d1","d2","d3","guide"].forEach(function(n){ $("#panel-"+n).hidden=(n!==name); });
+  if(name==="d3") Array.prototype.forEach.call(document.querySelectorAll("#panel-d3 .prevhint"),function(h){ var w1=exState("d1",h.dataset.ex).weight; h.textContent = w1 ? "Day 1: "+w1+" lb → try "+w1+"–"+((parseFloat(w1)+5)||w1)+" lb if Day 1 felt good" : "Tip: use Day 1's weight or a small step up."; });
+  state.tab=name; save(); window.scrollTo(0,0);
+}
+Array.prototype.forEach.call(document.querySelectorAll("nav.tabs button"),function(b){ b.addEventListener("click",function(){ showTab(b.dataset.tab); }); });
+$("#printBtn").addEventListener("click",function(){ window.print(); });
+
+/* Greeting */
+(function(){ var h=new Date().getHours(); $("#greet").textContent=(h<12?"Good morning":h<17?"Good afternoon":"Good evening")+"! One rep at a time. 💪"; })();
+
+/* App icon + absolute-URL manifest for "Add to Home screen" */
+function makeIcon(size){
+  var cv=document.createElement("canvas"); cv.width=cv.height=size; var g=cv.getContext("2d"); if(!g) return null; var s=size/512;
+  var grd=g.createLinearGradient(0,0,size,size); grd.addColorStop(0,"#C8553D"); grd.addColorStop(1,"#E99A5C"); g.fillStyle=grd; g.fillRect(0,0,size,size);
+  g.fillStyle="#FFF8F1";
+  function rr(x,y,w,h,r){ g.beginPath(); g.moveTo((x+r)*s,y*s); g.arcTo((x+w)*s,y*s,(x+w)*s,(y+h)*s,r*s); g.arcTo((x+w)*s,(y+h)*s,x*s,(y+h)*s,r*s); g.arcTo(x*s,(y+h)*s,x*s,y*s,r*s); g.arcTo(x*s,y*s,(x+w)*s,y*s,r*s); g.closePath(); g.fill(); }
+  rr(120,206,48,100,14); rr(344,206,48,100,14); rr(84,226,36,60,12); rr(392,226,36,60,12); rr(168,238,176,36,10);
+  g.fillStyle="#F6C26B"; g.beginPath(); var cx=256,cy=150,R=46,r=20; for(var i=0;i<10;i++){ var a=-Math.PI/2+i*Math.PI/5, rad=i%2?r:R; g.lineTo((cx+Math.cos(a)*rad)*s,(cy+Math.sin(a)*rad)*s); } g.closePath(); g.fill();
+  g.fillStyle="#FFF8F1"; g.font="bold "+Math.round(56*s)+"px Arial, Helvetica, sans-serif"; g.textAlign="center"; g.fillText("MY WORKOUT",256*s,392*s);
+  try{ return cv.toDataURL("image/png"); }catch(e){ return null; }
+}
+try{
+  var i192=makeIcon(192), i512=makeIcon(512);
+  if(i192&&i512){
+    $("#touchicon").href=i192;
+    if(/^https?:/.test(location.protocol)){
+      var here=location.href.split("#")[0];
+      var man={name:"My Workout",short_name:"My Workout",description:"A beginner full-body workout",start_url:here,scope:here.replace(/[^\/]*$/,""),display:"standalone",orientation:"portrait",background_color:"#FFF8F1",theme_color:"#C8553D",
+        icons:[{src:i192,sizes:"192x192",type:"image/png",purpose:"any"},{src:i512,sizes:"512x512",type:"image/png",purpose:"any maskable"}]};
+      $("#manifest").href="data:application/manifest+json,"+encodeURIComponent(JSON.stringify(man));
+    }
+  }
+}catch(e){}
+
+renderAll();
+showTab(state.tab&&DAYS[state.tab]||state.tab==="guide"?state.tab:"d1");
+})();
+</script>
+</body>
+</html>
